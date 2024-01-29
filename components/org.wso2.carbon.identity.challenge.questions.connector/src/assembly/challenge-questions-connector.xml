@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com).
+  ~
+  ~ WSO2 LLC. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<assembly>
+    <id>migration</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <files>
+        <file>
+            <source>
+                ../org.wso2.carbon.identity.challenge.questions.ui/target/org.wso2.carbon.identity.challenge.questions.ui-${project.version}.jar
+            </source>
+            <outputDirectory>wso2is-challenge-questions-connector-${project.version}/dropins/</outputDirectory>
+        </file>
+        <file>
+            <source>
+                ../org.wso2.carbon.identity.challenge.questions.recovery/target/org.wso2.carbon.identity.challenge.questions.recovery-${project.version}.jar
+            </source>
+            <outputDirectory>wso2is-challenge-questions-connector-${project.version}/dropins/</outputDirectory>
+        </file>
+        <file>
+            <source>
+                ../../service-stubs/identity/org.wso2.carbon.identity.challenge.questions.recovery.stub/target/org.wso2.carbon.identity.challenge.questions.recovery.stub-${project.version}.jar
+            </source>
+            <outputDirectory>wso2is-challenge-questions-connector-${project.version}/dropins/</outputDirectory>
+        </file>
+        <file>
+            <source>
+                ../org.wso2.carbon.identity.challenge.questions.api.server.challenge/org.wso2.carbon.identity.api.server.challenge.common/target/org.wso2.carbon.identity.api.server.challenge.common-${project.version}.jar
+            </source>
+            <outputDirectory>wso2is-challenge-questions-connector-${project.version}/api/</outputDirectory>
+        </file>
+        <file>
+            <source>
+                ../org.wso2.carbon.identity.challenge.questions.api.server.challenge/org.wso2.carbon.identity.rest.api.server.challenge.v1/target/org.wso2.carbon.identity.rest.api.server.challenge.v1-${project.version}.jar
+            </source>
+            <outputDirectory>wso2is-challenge-questions-connector-${project.version}/api/</outputDirectory>
+        </file>
+        <file>
+            <source>
+                ../org.wso2.carbon.identity.challenge.questions.api.user.challenge/org.wso2.carbon.identity.api.user.challenge.common/target/org.wso2.carbon.identity.api.user.challenge.common-${project.version}.jar
+            </source>
+            <outputDirectory>wso2is-challenge-questions-connector-${project.version}/api/</outputDirectory>
+        </file>
+        <file>
+            <source>
+                ../org.wso2.carbon.identity.challenge.questions.api.user.challenge/org.wso2.carbon.identity.rest.api.user.challenge.v1/target/org.wso2.carbon.identity.rest.api.user.challenge.v1-${project.version}.jar
+            </source>
+            <outputDirectory>wso2is-challenge-questions-connector-${project.version}/api/</outputDirectory>
+        </file>
+        <file>
+            <source>
+                ../org.wso2.carbon.identity.challenge.questions.api.user.recovery/target/org.wso2.carbon.identity.challenge.questions.api.user.recovery-${project.version}.jar
+            </source>
+            <outputDirectory>wso2is-challenge-questions-connector-${project.version}/api/</outputDirectory>
+        </file>
+        <file>
+            <source>
+                ./src/main/resources/setup.sh
+            </source>
+            <outputDirectory>wso2is-challenge-questions-connector-${project.version}/</outputDirectory>
+        </file>
+    </files>
+</assembly>
