@@ -69,6 +69,3 @@ Similarly create the following claims as well.
 | challengeQuestionUris | Challenge Question | challengeQuestionUris|
 | challengeQuestion1 | Challenge Question1 | firstChallenge|
 | challengeQuestion2 | Challenge Question2 | secondChallenge|
-
-
-
