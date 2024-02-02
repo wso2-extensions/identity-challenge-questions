@@ -25,8 +25,7 @@ public class ChallengeConstant {
 
     public static final String CHALLENGE_QUESTION_PREFIX = "CQM-";
     public static final String CHALLENGES_PATH_COMPONENT = "/challenges";
-    public static final String CHALLENGE_QUESTION_SET_PATH_COMPONENT = CHALLENGES_PATH_COMPONENT +
-            "/%s";
+    public static final String CHALLENGE_QUESTION_SET_PATH_COMPONENT = CHALLENGES_PATH_COMPONENT + "/%s";
 
     /**
      * Enum for server challenge management related errors in the format of
