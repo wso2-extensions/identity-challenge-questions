@@ -305,6 +305,12 @@
                 <artifactId>gson</artifactId>
                 <version>${com.google.code.gson.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon.identity.challenge.questions</groupId>
+                <artifactId>org.wso2.carbon.identity.api.user.challenge.common</artifactId>
+                <scope>provided</scope>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
