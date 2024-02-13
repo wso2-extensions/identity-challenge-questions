@@ -137,10 +137,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.wso2.carbon.identity.user.api</groupId>
+            <groupId>org.wso2.carbon.identity.challenge.questions</groupId>
             <artifactId>org.wso2.carbon.identity.api.user.challenge.common</artifactId>
             <scope>provided</scope>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.wso2.carbon.identity.user.api</groupId>
