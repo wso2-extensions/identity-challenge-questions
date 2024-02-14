@@ -31,6 +31,14 @@
     <packaging>pom</packaging>
     <name>WSO2 Carbon Extension - Identity Challenge Questions</name>
     <url>http://wso2.org</url>
+    
+    <scm>
+        <url>https://github.com/wso2-extensions/identity-challenge-questions.git</url>
+        <developerConnection>scm:git:https://github.com/wso2-extensions/identity-challenge-questions.git
+        </developerConnection>
+        <connection>scm:git:https://github.com/wso2-extensions/identity-challenge-questions.git</connection>
+        <tag>HEAD</tag>
+    </scm>
 
     <modules>
         <module>components/org.wso2.carbon.identity.challenge.questions.ui</module>
