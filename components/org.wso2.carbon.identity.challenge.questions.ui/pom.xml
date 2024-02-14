@@ -20,7 +20,7 @@
     <parent>
         <artifactId>identity-challenge-questions</artifactId>
         <groupId>org.wso2.carbon.identity.challenge.questions</groupId>
-        <version>1.0.0</version>
+        <version>1.0.1-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
