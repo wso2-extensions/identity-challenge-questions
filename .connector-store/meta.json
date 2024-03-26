@@ -1,0 +1,10 @@
+{
+    "name": "Challenge Questions Connector",
+    "owner": "WSO2",
+    "category": "User Management",
+    "documentationUrl": "https://github.com/wso2-extensions/identity-challenge-questions/blob/main/docs/config.md",
+    "description": "",
+    "status": "Active",
+    "labels": [],
+    "releases": []
+}
