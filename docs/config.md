@@ -5,8 +5,8 @@
 3. If you are using MacOS/Ubuntu, navigate to <CONNECTOR_HOME> and execute the following commands.
 
     ```
-    chmod u+r+x setup_sts.sh
-    ./setup_sts.sh
+    chmod u+r+x setup.sh
+    ./setup.sh
     ```
    
 Else,
