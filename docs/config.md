@@ -29,6 +29,7 @@ enable = true
 6. Please follow these steps to configure the beans.xml file located in the repository/deployment/server/webapps/api/WEB-INF directory:
 
 I. Open the beans.xml file.
+
 II. Add the following imports to the configuration
 
 ```
