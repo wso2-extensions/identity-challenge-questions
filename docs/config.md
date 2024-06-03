@@ -5,8 +5,8 @@
 3. If you are using MacOS/Ubuntu, navigate to <CONNECTOR_HOME> and execute the following commands.
 
     ```
-    chmod u+r+x setup_sts.sh
-    ./setup_sts.sh
+    chmod u+r+x setup.sh
+    ./setup.sh
     ```
    
 Else,
@@ -29,6 +29,7 @@ enable = true
 6. Please follow these steps to configure the beans.xml file located in the repository/deployment/server/webapps/api/WEB-INF directory:
 
 I. Open the beans.xml file.
+
 II. Add the following imports to the configuration
 
 ```
