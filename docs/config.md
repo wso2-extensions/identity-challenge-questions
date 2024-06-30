@@ -60,7 +60,8 @@ V. Under the **<jaxrs:server id="recovery" address="/identity/recovery/v0.9">** 
 7. Now restart the server and login to the console.
 8. Configure the following claims
 
-I. Go to `User Attributes & Stores` and select `Attributes`.
+I. Go to `User Attributes & Stores` and select `Attributes`. 
+
 II. Select `Attributes` under `Manage Attributes` and select `New Attribute`.  
 III. specify `primaryChallengeQuestion` as the `Attribute Name` and add `Primary Challenge Question` as the `Attribute Display Name`.
 Similarly create the following claims as well.
