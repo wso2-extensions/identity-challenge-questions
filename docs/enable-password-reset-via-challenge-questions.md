@@ -50,14 +50,14 @@ Follow the steps below to configure WSO2 Identity Server to enable password rese
     ```
 
     !!! note
-        If you want to enable reCAPTCHA for password recovery via email, you can set `enable_recaptcha` true as a property of `[identity_mgt.password_reset_challenge_questions]` in the `deployment.toml` file. See [Setting Up reCAPTCHA](/docs/deploy/configure-recaptcha) for more information.
-
-        ``` toml
+        If you want to enable reCAPTCHA for password recovery via email, you can set `enable_recaptcha` true as a property of `[identity_mgt.password_reset_challenge_questions]` in the `deployment.toml` file.
+    
+        ```
         enable_recaptcha=true
         failures_before_recaptcha="2"
         ```
 
-2.  You have now successfully configured reCAPTCHA for the password recovery flow.
+3.  You have now successfully configured reCAPTCHA for the password recovery flow.
 
 ## Configure the challenge questions
 
@@ -131,16 +131,17 @@ You can use the following CURL command to recover a password using REST API.
 This API is used to initiate password recovery using user challenge questions, one at a time. Response will be a random challenge question with a confirmation key.
 
 !!! abstract ""
+    
     **Request**
-    ```curl
+    ```
     curl -X GET -H "Authorization: Basic YWRtaW46YWRtaW4=" -H "Content-Type: application/json"  "https://localhost:9443/api/identity/recovery/v0.9/security-question?username=[USERNAME]"
     ```
-    ---
+    
     **Sample Request**
-    ```curl
+    ```
     curl -X GET -H "Authorization: Basic YWRtaW46YWRtaW4=" -H "Content-Type: application/json"  "https://localhost:9443/api/identity/recovery/v0.9/security-question?username=kim"
     ```
-    ---
+    
     **Sample Response**
     ```
     {
@@ -155,16 +156,17 @@ This API is used to initiate password recovery using user challenge questions, o
 #### Validate user challenge answer/answers
 
 !!! abstract ""
+
     **Request**
-    ```curl
+    ```
     curl -k -X POST -H "Authorization: Basic YWRtaW46YWRtaW4=" -H "Content-Type: application/json" -d '{"key": "[VALIDATION KEY]","answers": [{ "question-set-id": "http://wso2.org/claims/challengeQuestion1","answer": "[ANSWER]"},{"question-set-id": "http://wso2.org/claims/challengeQuestion2","[ANSWER2]": "car"}],"properties": []}' "https://localhost:9443/api/identity/recovery/v0.9/validate-answer"
     ```
-    ---
+    
     **Sample Request**
-    ```curl
+    ```
     curl -k -X POST -H "Authorization: Basic YWRtaW46YWRtaW4=" -H "Content-Type: application/json" -d '{"key": "0b20bd4d-cd82-4e8f-8ca4-4d265360b56b","answers": [{ "question-set-id": "http://wso2.org/claims/challengeQuestion1","answer": "Sri Lanka"},{"question-set-id": "http://wso2.org/claims/challengeQuestion2","answer": "BMW"}],"properties": []}' "https://localhost:9443/api/identity/recovery/v0.9/validate-answer"
     ```
-    ---
+
     **Sample Response**
     ```
     {
@@ -179,16 +181,17 @@ This API is used to initiate password recovery using user challenge questions, o
 This API is used to initiate password recovery by answering all the challenge questions at once. The response will have random challenge questions from the ones configured and a confirmation key.
 
 !!! abstract ""
+    
     **Request**
-    ```curl
+    ```
     curl -X GET -H "Authorization: Basic YWRtaW46YWRtaW4=" -H "Content-Type: application/json"  "https://localhost:9443/api/identity/recovery/v0.9/security-questions?username=[USERNAME]"
     ```
-    ---
+    
     **Sample Request**
     ```curl
     curl -X GET -H "Authorization: Basic YWRtaW46YWRtaW4=" -H "Content-Type: application/json"  "https://localhost:9443/api/identity/recovery/v0.9/security-questions?username=kim"
     ```
-    ---
+    
     **Sample Response**
     ```
     {
@@ -206,18 +209,19 @@ This API is used to initiate password recovery by answering all the challenge qu
 This API is used to reset user password using the confirmation key received through the recovery process. Input the key and the new password.
 
 !!! abstract ""
+
     **Request**
-    ```curl
+    ```
     curl -X POST -H "Authorization: Basic YWRtaW46YWRtaW4=" -H "Content-Type: application/json" -d '{"key": "[CONFIRMATION KEY]", "password": "[NEW PASSWORD]","properties": []}' "https://localhost:9443/api/identity/recovery/v0.9/set-password"
     ```
-    ---
+    
     **Sample Request**
-    ```curl
+    ```
     curl -X POST -H "Authorization: Basic YWRtaW46YWRtaW4=" -H "Content-Type: application/json" -d '{"key": "5c765a47-6764-4048-b5cf-55864cb654c0", "password": "Password1!","properties": []}' "https://localhost:9443/api/identity/recovery/v0.9/set-password"
     ```
-    ---
+    
     **Sample Response**
-    ```curl
+    ```
     "HTTP/1.1 200 OK"        
     ```
 
