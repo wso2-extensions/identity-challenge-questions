@@ -27,13 +27,11 @@ Follow the steps below to configure WSO2 Identity Server to enable password rese
 	![security-question-based-password-recovery-option](/docs/assets/img/security-question-based-password-recovery-option.png)
 
     !!! note
-        Select **Enable reCaptcha for security questions based password recovery** and configure the **Max failed attempts for reCaptcha** to enable reCAPTCHA after maximum number of failed attempts of security questions. See [Setting Up reCAPTCHA](/docs/deploy/configure-recaptcha) for more information.
+        Select **Enable reCaptcha for security questions based password recovery** and configure the **Max failed attempts for reCaptcha** to enable reCAPTCHA after maximum number of failed attempts of security questions.
 
         This **Max failed attempts for reCaptcha** value should be less than the number of failed attempts configured in the account locking connector.
         
         To view the number of failed attempts configured for the account lock feature, expand the **Login Attempts Security** tab and then expand the **Account Lock** tab.
-    
-        ![max-failed-login-attempts](/docs/assets/img/max-failed-login-attempts.png)
 
 5.	Click **Update**. 
 
