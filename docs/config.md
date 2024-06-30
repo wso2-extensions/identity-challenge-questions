@@ -71,7 +71,7 @@ Similarly create the following claims as well.
 | challengeQuestion1 | Challenge Question1 | firstChallenge|
 | challengeQuestion2 | Challenge Question2 | secondChallenge|
 
-9. Login to the management console via https://localhost:9443/carbon/ and enable the challenge questions feature by following the steps described in the [Recover password via Challenge Questions]({{base_path}}/enable-password-reset-via-challenge-questions.md).
+9. Login to the management console via https://localhost:9443/carbon/ and enable the challenge questions feature by following the steps described in the [Recover password via Challenge Questions](/docs//enable-password-reset-via-challenge-questions.md).
 
 > **Note:**
-The challenge questions feature can only be configured from the Carbon Console. Hence, please enable the feature by following the steps described in the [Recover password via Challenge Questions](/enable-password-reset-via-challenge-questions.md).
+The challenge questions feature can only be configured from the Carbon Console. Hence, please enable the feature by following the steps described in the [Recover password via Challenge Questions](/docs/enable-password-reset-via-challenge-questions.md).
