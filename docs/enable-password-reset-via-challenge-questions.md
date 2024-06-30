@@ -12,11 +12,11 @@ Follow the steps below to configure WSO2 Identity Server to enable password rese
 
 2.  On the **Main** tab, click **Identity** > **Identity Provider** > **Resident**.
 
-	![resident-idp]({{base_path}}/assets/img/resident-idp.png)  
+	![resident-idp](/docs/assets/img/resident-idp.png)  
 
 3.	Under the **Account Management** section, click **Account Recovery**.
 
-	![account-recovery-option]({{base_path}}/assets/img/account-recovery-option.png)  	
+	![account-recovery-option](/docs/assets/img/account-recovery-option.png)  	
 
 4.	Enter the required values as given below:
 
@@ -24,16 +24,16 @@ Follow the steps below to configure WSO2 Identity Server to enable password rese
 
 	-	**Number of questions required for password recovery**: `2` 
 	
-	![security-question-based-password-recovery-option]({{base_path}}/assets/img/security-question-based-password-recovery-option.png)
+	![security-question-based-password-recovery-option](/docs/assets/img/security-question-based-password-recovery-option.png)
 
     !!! note
-        Select **Enable reCaptcha for security questions based password recovery** and configure the **Max failed attempts for reCaptcha** to enable reCAPTCHA after maximum number of failed attempts of security questions. See [Setting Up reCAPTCHA]({{base_path}}/deploy/configure-recaptcha) for more information.
+        Select **Enable reCaptcha for security questions based password recovery** and configure the **Max failed attempts for reCaptcha** to enable reCAPTCHA after maximum number of failed attempts of security questions. See [Setting Up reCAPTCHA](/docs/deploy/configure-recaptcha) for more information.
 
         This **Max failed attempts for reCaptcha** value should be less than the number of failed attempts configured in the account locking connector.
         
         To view the number of failed attempts configured for the account lock feature, expand the **Login Attempts Security** tab and then expand the **Account Lock** tab.
     
-        ![max-failed-login-attempts]({{base_path}}/assets/img/max-failed-login-attempts.png)
+        ![max-failed-login-attempts](/docs/assets/img/max-failed-login-attempts.png)
 
 5.	Click **Update**. 
 
@@ -52,7 +52,7 @@ Follow the steps below to configure WSO2 Identity Server to enable password rese
     ```
 
     !!! note
-        If you want to enable reCAPTCHA for password recovery via email, you can set `enable_recaptcha` true as a property of `[identity_mgt.password_reset_challenge_questions]` in the `deployment.toml` file. See [Setting Up reCAPTCHA]({{base_path}}/deploy/configure-recaptcha) for more information.
+        If you want to enable reCAPTCHA for password recovery via email, you can set `enable_recaptcha` true as a property of `[identity_mgt.password_reset_challenge_questions]` in the `deployment.toml` file. See [Setting Up reCAPTCHA](/docs/deploy/configure-recaptcha) for more information.
 
         ``` toml
         enable_recaptcha=true
@@ -67,15 +67,15 @@ Follow the steps below to configure WSO2 Identity Server to enable password rese
 
 2.	Log in with the credentials of the user account that you created.
 
-	![myaccount-login]({{base_path}}/assets/img/myaccount-login.png)
+	![myaccount-login](/docs/assets/img/myaccount-login.png)
  
 3. Select the **Security** tab.
 
-    ![myaccount-security-tab]({{base_path}}/assets/img/myaccount-security-tab.png)
+    ![myaccount-security-tab](/docs/assets/img/myaccount-security-tab.png)
 
 3.	Under **Account Recovery**, click **+** to add or update security questions.
 
-	![myaccount-recovery-section]({{base_path}}/assets/img/myaccount-recovery-section.png)
+	![myaccount-recovery-section](/docs/assets/img/myaccount-recovery-section.png)
 
 4.	Configure the challenge questions as given below:
 
@@ -84,7 +84,7 @@ Follow the steps below to configure WSO2 Identity Server to enable password rese
 	-	**Challenge Question 2**: `Favourite food?`
 	-	**Your Answer**: `Pizza`
 
-    ![myaccount-security-questions-form]({{base_path}}/assets/img/security-questions-form.png)
+    ![myaccount-security-questions-form](/docs/assets/img/security-questions-form.png)
     
 5. Click **Save**.
 
@@ -100,25 +100,25 @@ Follow the steps below to configure WSO2 Identity Server to enable password rese
 
 2.	Click **Password**.
 
-    ![forgotten-password-option]({{base_path}}/assets/img/forgotten-password-option.png)
+    ![forgotten-password-option](/docs/assets/img/forgotten-password-option.png)
 
 3.	Enter the user name of the newly created user and if multiple recovery options are displayed, select the **Recover with Security Questions** option.
 
-    ![recover-password-security-question-option]({{base_path}}/assets/img/recover-password-security-question-option.png)
+    ![recover-password-security-question-option](/docs/assets/img/recover-password-security-question-option.png)
     
 4.	Click **Submit**. 
 
 5.	Enter the first challenge question answer as `Tommy` and click **Submit**.
 
-    ![security-question-pet]({{base_path}}/assets/img/security-question-pet.png)
+    ![security-question-pet](/docs/assets/img/security-question-pet.png)
 
 6.	Enter the second challenge question answer as `Pizza` and click **Submit**.
 
-	![security-question-food]({{base_path}}/assets/img/security-question-food.png)  
+	![security-question-food](/docs/assets/img/security-question-food.png)  
 
 7.	Enter the new password and click **Proceed**.
 
-    ![password-reset-form]({{base_path}}/assets/img/password-reset-form.png) 
+    ![password-reset-form](/docs/assets/img/password-reset-form.png) 
 
 8.	Enter the username and new password and click **Sign In**. The My Account home screen appears. 
 
@@ -407,4 +407,4 @@ This is used to validate the responses given by the user against the existing va
 ---
 
 !!! info "Related topics"
-    - [API: Challenge Questions]({{base_path}}/apis/restapis/challenge-questions.yaml)
+    - [API: Challenge Questions](/docs/apis/restapis/challenge-questions.yaml)
