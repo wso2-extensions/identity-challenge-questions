@@ -18,14 +18,15 @@
 
 package org.wso2.carbon.identity.rest.api.user.challenge.v1.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.wso2.carbon.identity.rest.api.user.challenge.v1.MeApiService;
 import org.wso2.carbon.identity.rest.api.user.challenge.v1.core.UserChallengeService;
 import org.wso2.carbon.identity.rest.api.user.challenge.v1.dto.ChallengeAnswerDTO;
 import org.wso2.carbon.identity.rest.api.user.challenge.v1.dto.UserChallengeAnswerDTO;
+import org.wso2.carbon.identity.rest.api.user.challenge.v1.factories.UserChallengeServiceFactory;
 
 import java.net.URI;
 import java.util.List;
+
 import javax.ws.rs.core.Response;
 
 import static org.wso2.carbon.identity.api.user.challenge.common.Constant.ME_CONTEXT;
@@ -39,8 +40,16 @@ import static org.wso2.carbon.identity.api.user.common.ContextLoader.getUserFrom
  */
 public class MeApiServiceImpl extends MeApiService {
 
-    @Autowired
-    private UserChallengeService challengeService;
+    private final UserChallengeService challengeService;
+
+    public MeApiServiceImpl() {
+
+        try {
+            challengeService = UserChallengeServiceFactory.getUserChallengeService();
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while initiating challenge service.", e);
+        }
+    }
 
     @Override
     public Response addChallengeAnswerOfLoggedInUser(String challengeSetId, UserChallengeAnswerDTO

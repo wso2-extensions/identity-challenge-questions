@@ -18,7 +18,6 @@
 
 package org.wso2.carbon.identity.rest.api.user.challenge.v1.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.wso2.carbon.identity.api.user.challenge.common.ChallengeQuestionServiceHolder;
 import org.wso2.carbon.identity.api.user.common.function.UniqueIdToUser;
 import org.wso2.carbon.identity.application.common.model.User;
@@ -27,9 +26,11 @@ import org.wso2.carbon.identity.rest.api.user.challenge.v1.UserIdApiService;
 import org.wso2.carbon.identity.rest.api.user.challenge.v1.core.UserChallengeService;
 import org.wso2.carbon.identity.rest.api.user.challenge.v1.dto.ChallengeAnswerDTO;
 import org.wso2.carbon.identity.rest.api.user.challenge.v1.dto.UserChallengeAnswerDTO;
+import org.wso2.carbon.identity.rest.api.user.challenge.v1.factories.UserChallengeServiceFactory;
 
 import java.net.URI;
 import java.util.List;
+
 import javax.ws.rs.core.Response;
 
 import static org.wso2.carbon.identity.api.user.challenge.common.Constant.USER_CHALLENGE_ANSWERS_PATH_COMPONENT;
@@ -41,8 +42,16 @@ import static org.wso2.carbon.identity.api.user.common.ContextLoader.buildURIFor
  */
 public class UserIdApiServiceImpl extends UserIdApiService {
 
-    @Autowired
-    private UserChallengeService challengeService;
+    private final UserChallengeService challengeService;
+
+    public UserIdApiServiceImpl() {
+
+        try {
+            challengeService = UserChallengeServiceFactory.getUserChallengeService();
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while initiating challenge service.", e);
+        }
+    }
 
     @Override
     public Response addChallengeAnswerOfAUser(String challengeSetId, String userId,

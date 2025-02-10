@@ -221,11 +221,6 @@
                 <version>${cxf-bundle.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${spring-web.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>javax.ws.rs</groupId>
                 <artifactId>javax.ws.rs-api</artifactId>
                 <version>${javax.ws.rs-api.version}</version>
@@ -436,7 +431,6 @@
         <equinox.javax.servlet.version>3.0.0.v201112011016</equinox.javax.servlet.version>
 
         <!--Orbit Version-->
-        <spring-web.version>5.3.25</spring-web.version>
         <axis2.wso2.version>1.6.1-wso2v38</axis2.wso2.version>
         <axiom.wso2.version>1.2.11-wso2v16</axiom.wso2.version>
         <json.wso2.version>3.0.0.wso2v1</json.wso2.version>

@@ -1,6 +1,6 @@
 ### **Configuring challenge questions connector**
 
-1. Download the connector from [WSO2 Connector Store](https://store.wso2.com/store/assets/isconnector/list).
+1. Download the connector from [WSO2 Connector Store](https://store.wso2.com/connector/identity-challenge-questions).
 2. Navigate to the <PRODUCT_HOME>, paste the wso2is-challenge-questions-connector-x.x.x.zip file downloaded from the WSO2 Connector Store and extract it. The extracted folder will be referred to as <CONNECTOR_HOME> in the rest of this document.
 3. If you are using MacOS/Ubuntu, navigate to <CONNECTOR_HOME> and execute the following commands.
 
@@ -26,36 +26,28 @@ hide_menu_items = []
 enable = true
 ```
 
-6. Please follow these steps to configure the beans.xml file located in the repository/deployment/server/webapps/api/WEB-INF directory:
+6. Please follow these steps to configure the web.xml file located in the repository/deployment/server/webapps/api/WEB-INF directory:
 
-I. Open the beans.xml file.
+I. Open the web.xml file.
 
-II. Add the following imports to the configuration
+II. Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>ServerV1ApiServlet</servlet-name>** tag, add the following class:
 
-```
-<import resource="classpath:META-INF/cxf/user-challenge-v1-cxf.xml"/>
-<import resource="classpath:META-INF/cxf/challenge-questions-user-recovery-v0-9-cxf.xml"/>
-<import resource="classpath:META-INF/cxf/challenge-server-v1-cxf.xml"/>
-```
-
-III. Under the **<jaxrs:server id="server" address="/server/v1">** tag, add the following class:
-
-`<bean class="org.wso2.carbon.identity.rest.api.server.challenge.v1.ChallengesApi"/>
+`org.wso2.carbon.identity.rest.api.server.challenge.v1.ChallengesApi
 `
 
-IV. Under the **<jaxrs:server id="users" address="/users/v1">** tag, add the following classes:
+IV. Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>UserV1Servlet</servlet-name>** tag, add the following classes:
 
 ```
-<bean class="org.wso2.carbon.identity.rest.api.user.challenge.v1.MeApi"/>
-<bean class="org.wso2.carbon.identity.rest.api.user.challenge.v1.UserIdApi"/>
+org.wso2.carbon.identity.rest.api.user.challenge.v1.MeApi,
+org.wso2.carbon.identity.rest.api.user.challenge.v1.UserIdApi
 ```
 
-V. Under the **<jaxrs:server id="recovery" address="/identity/recovery/v0.9">** tag, add the following classes:
+V. Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>IdentityRecoveryV0_9ApiServlet<</servlet-name>** tag, add the following classes:
 
 ```
-<bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionApi"/>
-<bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionsApi"/>
-<bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.ValidateAnswerApi"/>
+org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionApi,
+org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionsApi,
+org.wso2.carbon.identity.challenge.questions.recovery.endpoint.ValidateAnswerApi
 ```
 7. Now restart the server and login to the console.
 8. Configure the following claims

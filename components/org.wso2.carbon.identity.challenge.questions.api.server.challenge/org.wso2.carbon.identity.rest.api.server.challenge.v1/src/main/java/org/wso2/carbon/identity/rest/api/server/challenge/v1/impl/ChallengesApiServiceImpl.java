@@ -18,14 +18,15 @@
 
 package org.wso2.carbon.identity.rest.api.server.challenge.v1.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.wso2.carbon.identity.rest.api.server.challenge.v1.ChallengesApiService;
 import org.wso2.carbon.identity.rest.api.server.challenge.v1.core.ServerChallengeService;
+import org.wso2.carbon.identity.rest.api.server.challenge.v1.core.factories.ServerChallengeServiceFactory;
 import org.wso2.carbon.identity.rest.api.server.challenge.v1.dto.ChallengeQuestionDTO;
 import org.wso2.carbon.identity.rest.api.server.challenge.v1.dto.ChallengeQuestionPatchDTO;
 import org.wso2.carbon.identity.rest.api.server.challenge.v1.dto.ChallengeSetDTO;
 
 import java.util.List;
+
 import javax.ws.rs.core.Response;
 
 import static org.wso2.carbon.identity.api.server.challenge.common.ChallengeConstant.CHALLENGES_PATH_COMPONENT;
@@ -38,8 +39,16 @@ import static org.wso2.carbon.identity.api.server.common.ContextLoader.buildURIF
  */
 public class ChallengesApiServiceImpl extends ChallengesApiService {
 
-    @Autowired
-    private ServerChallengeService challengeService;
+    private final ServerChallengeService challengeService;
+
+    public ChallengesApiServiceImpl() {
+
+        try {
+            challengeService = ServerChallengeServiceFactory.getServerChallengeService();
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while initiating challenge service.", e);
+        }
+    }
 
     @Override
     public Response addChallengeQuestionToASet(String challengeSetId, ChallengeQuestionPatchDTO challengeQuestion) {

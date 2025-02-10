@@ -18,27 +18,25 @@
 
 package org.wso2.carbon.identity.rest.api.server.challenge.v1;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.wso2.carbon.identity.rest.api.server.challenge.v1.dto.*;
-import org.wso2.carbon.identity.rest.api.server.challenge.v1.ChallengesApiService;
+import io.swagger.annotations.ApiParam;
+import org.wso2.carbon.identity.rest.api.server.challenge.v1.dto.ChallengeQuestionDTO;
+import org.wso2.carbon.identity.rest.api.server.challenge.v1.dto.ChallengeQuestionPatchDTO;
+import org.wso2.carbon.identity.rest.api.server.challenge.v1.dto.ChallengeSetDTO;
 import org.wso2.carbon.identity.rest.api.server.challenge.v1.factories.ChallengesApiServiceFactory;
 
-import io.swagger.annotations.ApiParam;
-
-import org.wso2.carbon.identity.rest.api.server.challenge.v1.dto.ChallengeQuestionPatchDTO;
-import org.wso2.carbon.identity.rest.api.server.challenge.v1.dto.ErrorDTO;
-import org.wso2.carbon.identity.rest.api.server.challenge.v1.dto.ChallengeSetDTO;
-import java.util.List;
-import org.wso2.carbon.identity.rest.api.server.challenge.v1.dto.ChallengeQuestionDTO;
-
 import java.util.List;
 
-import java.io.InputStream;
-import org.apache.cxf.jaxrs.ext.multipart.Attachment;
-import org.apache.cxf.jaxrs.ext.multipart.Multipart;
-
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.*;
 
 @Path("/challenges")
 
@@ -46,8 +44,12 @@ import javax.ws.rs.*;
 @io.swagger.annotations.Api(value = "/challenges", description = "the challenges API")
 public class ChallengesApi  {
 
-   @Autowired
    private ChallengesApiService delegate;
+
+    public ChallengesApi() {
+
+        this.delegate = ChallengesApiServiceFactory.getChallengesApi();
+    }
 
     @PATCH
     @Path("/{challenge-set-id}")

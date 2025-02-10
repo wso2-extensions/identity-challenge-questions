@@ -23,10 +23,10 @@ import org.wso2.carbon.identity.challenge.questions.recovery.endpoint.impl.Valid
 
 public class ValidateAnswerApiServiceFactory {
 
-   private final static ValidateAnswerApiService service = new ValidateAnswerApiServiceImpl();
+   private final static ValidateAnswerApiService SERVICE = new ValidateAnswerApiServiceImpl();
 
-   public static ValidateAnswerApiService getValidateAnswerApi()
-   {
-      return service;
+   public static ValidateAnswerApiService getValidateAnswerApi() {
+
+      return SERVICE;
    }
 }

@@ -23,10 +23,10 @@ import org.wso2.carbon.identity.rest.api.server.challenge.v1.impl.ChallengesApiS
 
 public class ChallengesApiServiceFactory {
 
-   private final static ChallengesApiService service = new ChallengesApiServiceImpl();
+   private final static ChallengesApiService SERVICE = new ChallengesApiServiceImpl();
 
-   public static ChallengesApiService getChallengesApi()
-   {
-      return service;
+   public static ChallengesApiService getChallengesApi() {
+
+      return SERVICE;
    }
 }

@@ -23,10 +23,10 @@ import  org.wso2.carbon.identity.challenge.questions.recovery.endpoint.impl.Secu
 
 public class SecurityQuestionApiServiceFactory {
 
-   private final static SecurityQuestionApiService service = new SecurityQuestionApiServiceImpl();
+   private final static SecurityQuestionApiService SERVICE = new SecurityQuestionApiServiceImpl();
 
-   public static SecurityQuestionApiService getSecurityQuestionApi()
-   {
-      return service;
+   public static SecurityQuestionApiService getSecurityQuestionApi() {
+
+      return SERVICE;
    }
 }

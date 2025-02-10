@@ -87,12 +87,14 @@ public class Utils {
     private static final Log LOG = LogFactory.getLog(Utils.class);
 
     public static SecurityQuestionPasswordRecoveryManager getSecurityQuestionBasedPwdRecoveryManager() {
+
         return (SecurityQuestionPasswordRecoveryManager) PrivilegedCarbonContext.getThreadLocalCarbonContext()
                 .getOSGiService(SecurityQuestionPasswordRecoveryManager.class, null);
     }
     
     public static InitiateQuestionResponseDTO getInitiateQuestionResponseDTO
             (ChallengeQuestionResponse challengeQuestionResponse) {
+
         InitiateQuestionResponseDTO initiateQuestionResponseDTO = new InitiateQuestionResponseDTO();
 
         QuestionDTO questionDTO = new QuestionDTO();
@@ -122,6 +124,7 @@ public class Utils {
 
     public static InitiateAllQuestionResponseDTO getInitiateQuestionResponseDTO
             (ChallengeQuestionsResponse challengeQuestionsResponse) {
+
         InitiateAllQuestionResponseDTO initiateAllQuestionResponseDTO = new InitiateAllQuestionResponseDTO();
 
         List<QuestionDTO> questionDTOs = new ArrayList<>();

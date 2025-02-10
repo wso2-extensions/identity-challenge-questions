@@ -18,6 +18,7 @@
 
 package org.wso2.carbon.identity.api.server.challenge.common;
 
+import org.wso2.carbon.context.PrivilegedCarbonContext;
 import org.wso2.carbon.identity.challenge.questions.recovery.ChallengeQuestionManager;
 
 /**
@@ -25,15 +26,19 @@ import org.wso2.carbon.identity.challenge.questions.recovery.ChallengeQuestionMa
  */
 public class ChallengeQuestionDataHolder {
 
-    private static ChallengeQuestionManager challengeQuestionManager;
+    private static class ChallengeQuestionManagerHolder {
 
-    public static ChallengeQuestionManager getChallengeQuestionManager() {
-
-        return challengeQuestionManager;
+        static final ChallengeQuestionManager SERVICE = (ChallengeQuestionManager) PrivilegedCarbonContext
+                .getThreadLocalCarbonContext().getOSGiService(ChallengeQuestionManager.class, null);
     }
 
-    public static void setChallengeQuestionManager(ChallengeQuestionManager challengeQuestionManager) {
+    /**
+     * Get ChallengeQuestionManager osgi service.
+     *
+     * @return ChallengeQuestionManager
+     */
+    public static ChallengeQuestionManager getChallengeQuestionManager() {
 
-        ChallengeQuestionDataHolder.challengeQuestionManager = challengeQuestionManager;
+        return ChallengeQuestionManagerHolder.SERVICE;
     }
 }
