@@ -18,7 +18,6 @@
 
 package org.wso2.carbon.identity.rest.api.user.challenge.v1;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.wso2.carbon.identity.rest.api.user.challenge.v1.dto.*;
 import org.wso2.carbon.identity.rest.api.user.challenge.v1.MeApiService;
 import org.wso2.carbon.identity.rest.api.user.challenge.v1.factories.MeApiServiceFactory;
@@ -47,8 +46,12 @@ import javax.ws.rs.*;
 @io.swagger.annotations.Api(value = "/me", description = "the me API")
 public class MeApi  {
 
-   @Autowired
    private MeApiService delegate;
+
+    public MeApi() {
+
+        this.delegate = MeApiServiceFactory.getMeApi();
+    }
 
     @POST
     @Path("/challenge-answers/{challenge-set-id}")

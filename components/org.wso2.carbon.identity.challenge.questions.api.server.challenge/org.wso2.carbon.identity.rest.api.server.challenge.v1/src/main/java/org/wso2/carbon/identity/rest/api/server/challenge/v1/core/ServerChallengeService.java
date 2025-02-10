@@ -26,6 +26,7 @@ import org.wso2.carbon.identity.api.server.common.Constants;
 import org.wso2.carbon.identity.api.server.common.ContextLoader;
 import org.wso2.carbon.identity.api.server.common.error.APIError;
 import org.wso2.carbon.identity.api.server.common.error.ErrorResponse;
+import org.wso2.carbon.identity.challenge.questions.recovery.ChallengeQuestionManager;
 import org.wso2.carbon.identity.recovery.IdentityRecoveryClientException;
 import org.wso2.carbon.identity.recovery.IdentityRecoveryConstants;
 import org.wso2.carbon.identity.recovery.IdentityRecoveryException;
@@ -42,7 +43,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import javax.ws.rs.core.Response;
 
-import static org.wso2.carbon.identity.api.server.challenge.common.ChallengeQuestionDataHolder.getChallengeQuestionManager;
 import static java.util.stream.Collectors.groupingBy;
 
 /**
@@ -52,6 +52,13 @@ public class ServerChallengeService {
 
     private static final Log log = LogFactory.getLog(ServerChallengeService.class);
     private static final String WSO2_CLAIM_DIALECT = "http://wso2.org/claims/";
+
+    private final ChallengeQuestionManager challengeQuestionManager;
+
+    public ServerChallengeService(ChallengeQuestionManager challengeQuestionManager) {
+
+        this.challengeQuestionManager = challengeQuestionManager;
+    }
 
     /**
      * Get all challenges of the loaded tenant.
@@ -66,11 +73,11 @@ public class ServerChallengeService {
         try {
             if (StringUtils.isEmpty(locale)) {
 
-                return buildChallengesDTO(getChallengeQuestionManager()
-                        .getAllChallengeQuestions(ContextLoader.getTenantDomainFromContext()), offset, limit);
+                return buildChallengesDTO(challengeQuestionManager.getAllChallengeQuestions(
+                        ContextLoader.getTenantDomainFromContext()), offset, limit);
             } else {
-                return buildChallengesDTO(getChallengeQuestionManager()
-                        .getAllChallengeQuestions(ContextLoader.getTenantDomainFromContext(), locale), offset, limit);
+                return buildChallengesDTO(challengeQuestionManager.getAllChallengeQuestions(
+                        ContextLoader.getTenantDomainFromContext(), locale), offset, limit);
             }
         } catch (IdentityRecoveryException e) {
             throw handleIdentityRecoveryException(e,
@@ -95,15 +102,11 @@ public class ServerChallengeService {
                         ChallengeConstant.ErrorMessage.ERROR_CHALLENGE_SET_NOT_EXISTS);
             }
             if (StringUtils.isEmpty(locale)) {
-                return buildChallengeDTO(getChallengeQuestionManager()
-                                .getAllChallengeQuestions(ContextLoader.getTenantDomainFromContext()), challengeSetId
-                        , offset,
-                        limit);
+                return buildChallengeDTO(challengeQuestionManager.getAllChallengeQuestions(
+                        ContextLoader.getTenantDomainFromContext()), challengeSetId, offset, limit);
             } else {
-                return buildChallengeDTO(getChallengeQuestionManager()
-                                .getAllChallengeQuestions(ContextLoader.getTenantDomainFromContext(), locale),
-                        challengeSetId,
-                        offset, limit);
+                return buildChallengeDTO(challengeQuestionManager.getAllChallengeQuestions(
+                        ContextLoader.getTenantDomainFromContext(), locale), challengeSetId, offset, limit);
             }
         } catch (IdentityRecoveryException e) {
             throw handleIdentityRecoveryException(e,
@@ -130,10 +133,8 @@ public class ServerChallengeService {
                 ChallengeQuestion[] toDelete = {
                         new ChallengeQuestion(challengeSetId, questionId, StringUtils.EMPTY, locale)
                 };
-                getChallengeQuestionManager()
-                        .deleteChallengeQuestions(toDelete, ContextLoader.getTenantDomainFromContext());
+                challengeQuestionManager.deleteChallengeQuestions(toDelete, ContextLoader.getTenantDomainFromContext());
             }
-
         } catch (IdentityRecoveryException e) {
             throw handleIdentityRecoveryException(e,
                     ChallengeConstant.ErrorMessage.ERROR_CODE_ERROR_DELETING_CHALLENGE);
@@ -155,8 +156,8 @@ public class ServerChallengeService {
         }
         try {
             if (isChallengeSetExists(challengeSetId, ContextLoader.getTenantDomainFromContext())) {
-                getChallengeQuestionManager()
-                        .deleteChallengeQuestionSet(challengeSetId, locale, ContextLoader.getTenantDomainFromContext());
+                challengeQuestionManager.deleteChallengeQuestionSet(challengeSetId, locale,
+                        ContextLoader.getTenantDomainFromContext());
             }
         } catch (IdentityRecoveryException e) {
             throw handleIdentityRecoveryException(e,
@@ -176,7 +177,7 @@ public class ServerChallengeService {
         ChallengeQuestion[] toAdd = buildChallengeQuestionSets(challengeSets);
 
         try {
-            getChallengeQuestionManager().addChallengeQuestions(toAdd, ContextLoader.getTenantDomainFromContext());
+            challengeQuestionManager.addChallengeQuestions(toAdd, ContextLoader.getTenantDomainFromContext());
         } catch (IdentityRecoveryException e) {
             throw handleIdentityRecoveryException(e, ChallengeConstant.ErrorMessage.ERROR_CODE_ERROR_ADDING_CHALLENGES);
 
@@ -201,7 +202,7 @@ public class ServerChallengeService {
         List<ChallengeQuestion> questions = buildChallengeQuestions(challenges, challengeSetId);
         ChallengeQuestion[] toPut = questions.toArray(new ChallengeQuestion[0]);
         try {
-            getChallengeQuestionManager().addChallengeQuestions(toPut, ContextLoader.getTenantDomainFromContext());
+            challengeQuestionManager.addChallengeQuestions(toPut, ContextLoader.getTenantDomainFromContext());
         } catch (IdentityRecoveryException e) {
             throw handleIdentityRecoveryException(e,
                     ChallengeConstant.ErrorMessage.ERROR_CODE_ERROR_UPDATING_CHALLENGE_SET);
@@ -230,8 +231,7 @@ public class ServerChallengeService {
             ChallengeQuestion[] toPatch = questions.toArray(new ChallengeQuestion[0]);
 
             try {
-                getChallengeQuestionManager()
-                        .addChallengeQuestions(toPatch, ContextLoader.getTenantDomainFromContext());
+                challengeQuestionManager.addChallengeQuestions(toPatch, ContextLoader.getTenantDomainFromContext());
             } catch (IdentityRecoveryException e) {
                 throw handleIdentityRecoveryException(e,
                         ChallengeConstant.ErrorMessage.ERROR_CODE_ERROR_ADDING_CHALLENGE_QUESTION_TO_A_SET);
@@ -311,8 +311,7 @@ public class ServerChallengeService {
     private boolean isChallengeSetExists(String setID, String tenantDomain) {
 
         try {
-            List<String> existingChallenges = getChallengeQuestionManager()
-                    .getAllChallengeQuestionSetsURIs(tenantDomain);
+            List<String> existingChallenges = challengeQuestionManager .getAllChallengeQuestionSetsURIs(tenantDomain);
             if (existingChallenges.contains(WSO2_CLAIM_DIALECT.concat(setID))) {
                 return true;
             }

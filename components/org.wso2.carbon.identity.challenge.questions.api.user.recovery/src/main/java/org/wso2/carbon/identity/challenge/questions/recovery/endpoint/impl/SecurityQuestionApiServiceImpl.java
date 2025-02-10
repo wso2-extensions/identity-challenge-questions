@@ -46,6 +46,7 @@ import javax.ws.rs.core.Response;
 import java.net.MalformedURLException;
 
 public class SecurityQuestionApiServiceImpl extends SecurityQuestionApiService {
+
     private static final Log LOG = LogFactory.getLog(SecurityQuestionApiServiceImpl.class);
 
     @Override

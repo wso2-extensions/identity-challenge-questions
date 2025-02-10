@@ -18,6 +18,7 @@
 
 package org.wso2.carbon.identity.api.user.challenge.common;
 
+import org.wso2.carbon.context.PrivilegedCarbonContext;
 import org.wso2.carbon.identity.challenge.questions.recovery.ChallengeQuestionManager;
 import org.wso2.carbon.user.core.service.RealmService;
 
@@ -26,29 +27,36 @@ import org.wso2.carbon.user.core.service.RealmService;
  */
 public class ChallengeQuestionServiceHolder {
 
-    private static ChallengeQuestionManager challengeQuestionManager;
+    private static class ChallengeQuestionManagerHolder {
 
-    private static RealmService realmService;
+        static final ChallengeQuestionManager SERVICE = (ChallengeQuestionManager) PrivilegedCarbonContext.
+                getThreadLocalCarbonContext().getOSGiService(ChallengeQuestionManager.class, null);
+    }
+
+    private static class RealmServiceHolder {
+
+        static final RealmService SERVICE = (RealmService) PrivilegedCarbonContext.getThreadLocalCarbonContext()
+                .getOSGiService(RealmService.class, null);
+    }
 
     /**
-     * Get ChallengeQuestionManager osgi service.
-     * @return ChallengeQuestionManager
+     * Get ChallengeQuestionManager OSGI service.
+     *
+     * @return ChallengeQuestionManager.
      */
     public static ChallengeQuestionManager getChallengeQuestionManager() {
-        return challengeQuestionManager;
+
+        return ChallengeQuestionManagerHolder.SERVICE;
     }
 
-    public static void setChallengeQuestionManager(ChallengeQuestionManager challengeQuestionManager) {
-        ChallengeQuestionServiceHolder.challengeQuestionManager = challengeQuestionManager;
-    }
 
+    /**
+     * Get RealmService OSGI service.
+     *
+     * @return RealmService.
+     */
     public static RealmService getRealmService() {
 
-        return realmService;
-    }
-
-    public static void setRealmService(RealmService realmService) {
-
-        ChallengeQuestionServiceHolder.realmService = realmService;
+        return RealmServiceHolder.SERVICE;
     }
 }
