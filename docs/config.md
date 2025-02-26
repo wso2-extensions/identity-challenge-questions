@@ -42,7 +42,7 @@ org.wso2.carbon.identity.rest.api.user.challenge.v1.MeApi,
 org.wso2.carbon.identity.rest.api.user.challenge.v1.UserIdApi
 ```
 
-V. Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>IdentityRecoveryV0_9ApiServlet<</servlet-name>** tag, add the following classes:
+V. Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>IdentityRecoveryV0_9ApiServlet</servlet-name>** tag, add the following classes:
 
 ```
 org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionApi,
