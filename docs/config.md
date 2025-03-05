@@ -57,11 +57,11 @@ enable = true
        <bean class="org.wso2.carbon.identity.rest.api.user.challenge.v1.UserIdApi"/>
        ```
      - Under the **<jaxrs:server id="recovery" address="/identity/recovery/v0.9">** tag, add the following classes:
-         ```
-         <bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionApi"/>
-         <bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionsApi"/>
-         <bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.ValidateAnswerApi"/>
-         ```
+       ```
+       <bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionApi"/>
+       <bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionsApi"/>
+       <bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.ValidateAnswerApi"/>
+       ```
 7. Now restart the server and login to the console.
 8. Configure the following claims
 
