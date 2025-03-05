@@ -26,29 +26,42 @@ hide_menu_items = []
 enable = true
 ```
 
-6. Please follow these steps to configure the web.xml file located in the repository/deployment/server/webapps/api/WEB-INF directory:
-
-I. Open the web.xml file.
-
-II. Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>ServerV1ApiServlet</servlet-name>** tag, add the following class:
-
-`org.wso2.carbon.identity.rest.api.server.challenge.v1.ChallengesApi
-`
-
-IV. Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>UserV1Servlet</servlet-name>** tag, add the following classes:
-
-```
-org.wso2.carbon.identity.rest.api.user.challenge.v1.MeApi,
-org.wso2.carbon.identity.rest.api.user.challenge.v1.UserIdApi
-```
-
-V. Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>IdentityRecoveryV0_9ApiServlet</servlet-name>** tag, add the following classes:
-
-```
-org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionApi,
-org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionsApi,
-org.wso2.carbon.identity.challenge.questions.recovery.endpoint.ValidateAnswerApi
-```
+6. Please follow these steps based on your identity server version.
+   - **IS-7.1.0 onwards**
+     - Open the web.xml file located in the repository/deployment/server/webapps/api/WEB-INF directory.
+     - Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>ServerV1ApiServlet</servlet-name>** tag, add the following class:`org.wso2.carbon.identity.rest.api.server.challenge.v1.ChallengesApi`
+     - Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>UserV1Servlet</servlet-name>** tag, add the following classes:
+      ```
+      org.wso2.carbon.identity.rest.api.user.challenge.v1.MeApi,
+      org.wso2.carbon.identity.rest.api.user.challenge.v1.UserIdApi
+      ```
+     - Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>IdentityRecoveryV0_9ApiServlet</servlet-name>** tag, add the following classes:
+      ```
+      org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionApi,
+      org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionsApi,
+      org.wso2.carbon.identity.challenge.questions.recovery.endpoint.ValidateAnswerApi
+      ```
+   - **below IS-7.1.0 versions**
+     - Open the beans.xml file located in the repository/deployment/server/webapps/api/WEB-INF directory.
+     - Add the following imports to the configuration bean.
+      ```
+      <import resource="classpath:META-INF/cxf/user-challenge-v1-cxf.xml"/>
+      <import resource="classpath:META-INF/cxf/challenge-questions-user-recovery-v0-9-cxf.xml"/>
+      <import resource="classpath:META-INF/cxf/challenge-server-v1-cxf.xml"/>
+      ```
+     - Under the **<jaxrs:server id="server" address="/server/v1">** tag, add the following class:
+     `<bean class="org.wso2.carbon.identity.rest.api.server.challenge.v1.ChallengesApi"/>`
+     - Under the **<jaxrs:server id="server" address="/server/v1">** tag, add the following class:
+       ```
+       <bean class="org.wso2.carbon.identity.rest.api.user.challenge.v1.MeApi"/>
+       <bean class="org.wso2.carbon.identity.rest.api.user.challenge.v1.UserIdApi"/>
+       ```
+     - Under the **<jaxrs:server id="recovery" address="/identity/recovery/v0.9">** tag, add the following classes:
+         ```
+         <bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionApi"/>
+         <bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionsApi"/>
+         <bean class="org.wso2.carbon.identity.challenge.questions.recovery.endpoint.ValidateAnswerApi"/>
+         ```
 7. Now restart the server and login to the console.
 8. Configure the following claims
 
