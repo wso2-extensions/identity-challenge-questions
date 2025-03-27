@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.identity.application.common.model.User;
 import org.wso2.carbon.identity.base.IdentityException;
+import org.wso2.carbon.identity.challenge.questions.recovery.dao.ChallengeQuestionsConstants;
 import org.wso2.carbon.identity.challenge.questions.recovery.model.ChallengeQuestion;
 import org.wso2.carbon.identity.core.util.IdentityTenantUtil;
 import org.wso2.carbon.identity.core.util.IdentityUtil;
@@ -45,6 +46,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.wso2.carbon.identity.recovery.IdentityRecoveryConstants.LOCALE_EN_US;
 
 public class Utils {
 
@@ -315,5 +318,129 @@ public class Utils {
 
         return IdentityException.error(
                 IdentityRecoveryServerException.class, error.getCode(), errorDescription);
+    }
+
+    /**
+     * Handle server exception.
+     *
+     * @param error Error message.
+     * @param data  Data to be formatted in the error message.
+     * @param e     Exception.
+     * @return IdentityRecoveryServerException.
+     * @throws IdentityRecoveryServerException If an error occurred while handling the server exception.
+     */
+    public static IdentityRecoveryServerException handleServerException(ChallengeQuestionsConstants.ErrorMessages error,
+                                                                        String data, Throwable e)
+            throws IdentityRecoveryServerException {
+
+        String errorDescription;
+        if (StringUtils.isNotBlank(data)) {
+            errorDescription = String.format(error.getMessage(), data);
+        } else {
+            errorDescription = error.getMessage();
+        }
+
+        return IdentityException.error(IdentityRecoveryServerException.class, error.getCode(), errorDescription, e);
+    }
+
+    /**
+     * Validate the locale.
+     *
+     * @param locale Locale  to be validated.
+     * @return Validated locale string.
+     * @throws IdentityRecoveryClientException If the locale string is invalid.
+     */
+    public static String validateLocale(String locale) throws IdentityRecoveryClientException {
+
+        if (StringUtils.isBlank(locale)) {
+            locale = LOCALE_EN_US;
+        }
+        if (locale.matches(IdentityRecoveryConstants.Questions.BLACKLIST_REGEX)) {
+            log.error("Invalid locale value provided : " + locale);
+            throw handleClientException(IdentityRecoveryConstants.ErrorMessages.ERROR_CODE_INVALID_LOCALE, locale);
+        }
+        return locale;
+
+    }
+
+    /**
+     * Validate the challenge question attributes.
+     *
+     * @param question Challenge question to be validated.
+     * @throws IdentityRecoveryClientException If the challenge question is invalid.
+     */
+    public static void validateChallengeQuestionAttributes(ChallengeQuestion question)
+            throws IdentityRecoveryClientException {
+
+        String setId = question.getQuestionSetId();
+        String questionId = question.getQuestionId();
+        String questionText = question.getQuestion();
+        String questionLocale = question.getLocale();
+
+        if (StringUtils.isBlank(setId) || StringUtils.isBlank(questionId) || StringUtils.isBlank(questionText) ||
+                StringUtils.isBlank(questionLocale)) {
+            throw handleClientException(IdentityRecoveryConstants.ErrorMessages.ERROR_CODE_INVALID_CHALLENGE, null);
+        }
+        validateChallengePathParams(setId, questionId);
+    }
+
+    /**
+     * Validate the mandatory parameters of the challenge question.
+     *
+     * @param question Challenge question to be validated.
+     * @throws IdentityRecoveryClientException If the challenge question is invalid.
+     */
+    public static void validateChallengeQuestionMandatoryParams(ChallengeQuestion question)
+            throws IdentityRecoveryClientException {
+
+        String setId = question.getQuestionSetId();
+        String questionId = question.getQuestionId();
+
+        if (StringUtils.isBlank(setId) || StringUtils.isBlank(questionId)) {
+            throw handleClientException(IdentityRecoveryConstants.ErrorMessages.ERROR_CODE_INVALID_CHALLENGE, null);
+        }
+        validateChallengePathParams(setId, questionId);
+    }
+
+    /**
+     * Validate the challenge question path parameters.
+     *
+     * @param setId      Challenge question set ID to be validated.
+     * @param questionId Challenge question ID to be validated.
+     * @throws IdentityRecoveryClientException If the challenge question path parameters are invalid.
+     */
+    public static void validateChallengePathParams(String setId, String questionId)
+            throws IdentityRecoveryClientException {
+
+        validateChallengeSetURI(setId);
+        validateChallengePathParam(questionId, "QuestionId");
+    }
+
+    /**
+     * Validate the challenge question set URI.
+     *
+     * @param setId Challenge question set ID to be validated.
+     * @throws IdentityRecoveryClientException If the challenge question set URI is invalid.
+     */
+    public static void validateChallengeSetURI(String setId) throws IdentityRecoveryClientException {
+
+        String challengeSetDir = getChallengeSetDirFromUri(setId);
+        validateChallengePathParam(challengeSetDir, "ChallengeSetId");
+    }
+
+    /**
+     * Validate the challenge question path parameter.
+     *
+     * @param pathParam     Challenge question path parameter to be validated.
+     * @param pathParamName Name of the challenge question path parameter.
+     * @throws IdentityRecoveryClientException If the challenge question path parameter is invalid.
+     */
+    public static void validateChallengePathParam(String pathParam, String pathParamName)
+            throws IdentityRecoveryClientException {
+
+        if (StringUtils.isBlank(pathParam) || !StringUtils.isAlphanumeric(pathParam)) {
+            throw handleClientException(IdentityRecoveryConstants.ErrorMessages.ERROR_CODE_INVALID_CHALLENGE_PATH,
+                    pathParamName);
+        }
     }
 }
