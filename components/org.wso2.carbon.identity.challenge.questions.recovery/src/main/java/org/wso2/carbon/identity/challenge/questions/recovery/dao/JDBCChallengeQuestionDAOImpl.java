@@ -52,6 +52,7 @@ import static org.wso2.carbon.identity.challenge.questions.recovery.dao.Challeng
 import static org.wso2.carbon.identity.challenge.questions.recovery.dao.ChallengeQuestionsConstants.SQLQueries.GET_CHALLENGE_QUESTION;
 import static org.wso2.carbon.identity.challenge.questions.recovery.dao.ChallengeQuestionsConstants.SQLQueries.GET_CHALLENGE_QUESTIONS_BY_TENANT_ID;
 import static org.wso2.carbon.identity.challenge.questions.recovery.dao.ChallengeQuestionsConstants.SQLQueries.GET_CHALLENGE_QUESTIONS_BY_TENANT_ID_LOCALE;
+import static org.wso2.carbon.identity.challenge.questions.recovery.dao.ChallengeQuestionsConstants.SQLQueries.GET_CHALLENGE_QUESTION_SET;
 import static org.wso2.carbon.identity.challenge.questions.recovery.dao.ChallengeQuestionsConstants.SQLQueries.GET_CHALLENGE_QUESTION_SET_ID;
 import static org.wso2.carbon.identity.challenge.questions.recovery.dao.ChallengeQuestionsConstants.SQLQueries.GET_CHALLENGE_QUESTION_WITH_LOCALE;
 import static org.wso2.carbon.identity.challenge.questions.recovery.dao.ChallengeQuestionsConstants.SQLQueries.UPDATE_CHALLENGE_QUESTION;
@@ -280,7 +281,7 @@ public class JDBCChallengeQuestionDAOImpl implements ChallengeQuestionDAO {
      * @throws IdentityRecoveryClientException If an error occurs while checking the challenge question.
      * @throws DataAccessException             If a data access error occurs while checking the challenge question.
      */
-    private boolean isChallengeQuestionExists(ChallengeQuestion challengeQuestion, String tenantDomain)
+    public boolean isChallengeQuestionExists(ChallengeQuestion challengeQuestion, String tenantDomain)
             throws IdentityRecoveryClientException, DataAccessException {
 
         validateChallengeQuestionMandatoryParams(challengeQuestion);
@@ -306,6 +307,18 @@ public class JDBCChallengeQuestionDAOImpl implements ChallengeQuestionDAO {
                     namedPreparedStatement.setString(QUESTION_ID, challengeQuestion.getQuestionId());
                 });
 
+        return questionId != null;
+    }
+
+    public boolean isChallengeQuestionSetExists(String challengeQuestionUri, String tenantDomain)
+            throws DataAccessException {
+
+        NamedJdbcTemplate namedJdbcTemplate = JdbcUtils.getNewNamedJdbcTemplate();
+        Integer questionId = namedJdbcTemplate.fetchSingleRecord(GET_CHALLENGE_QUESTION_SET,
+                (resultSet, rowNumber) -> resultSet.getInt(1), namedPreparedStatement -> {
+                    namedPreparedStatement.setInt(TENANT_ID, IdentityTenantUtil.getTenantId(tenantDomain));
+                    namedPreparedStatement.setString(QUESTION_SET_ID, challengeQuestionUri);
+                });
         return questionId != null;
     }
 }

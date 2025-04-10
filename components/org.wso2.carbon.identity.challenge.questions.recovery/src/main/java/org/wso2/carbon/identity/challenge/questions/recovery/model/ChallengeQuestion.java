@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2014-2025, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -17,6 +17,8 @@
  */
 
 package org.wso2.carbon.identity.challenge.questions.recovery.model;
+
+import java.util.Objects;
 
 /**
  * encapsulates challenge questions data
@@ -77,5 +79,25 @@ public class ChallengeQuestion {
 
     public void setLocale(String locale) {
         this.locale = locale;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ChallengeQuestion that = (ChallengeQuestion) o;
+        return Objects.equals(questionId, that.questionId) && Objects.equals(questionSetId, that.questionSetId) &&
+                Objects.equals(locale, that.locale);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(questionId, questionSetId, locale);
     }
 }
