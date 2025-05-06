@@ -27,7 +27,7 @@
 
     <groupId>org.wso2.carbon.identity.challenge.questions</groupId>
     <artifactId>identity-challenge-questions</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.1</version>
     <packaging>pom</packaging>
     <name>WSO2 Carbon Extension - Identity Challenge Questions</name>
     <url>http://wso2.org</url>
@@ -37,7 +37,7 @@
         <developerConnection>scm:git:https://github.com/wso2-extensions/identity-challenge-questions.git
         </developerConnection>
         <connection>scm:git:https://github.com/wso2-extensions/identity-challenge-questions.git</connection>
-        <tag>HEAD</tag>
+        <tag>v3.0.1</tag>
     </scm>
 
     <modules>
