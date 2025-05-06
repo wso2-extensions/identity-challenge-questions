@@ -468,7 +468,7 @@
         <pax.logging.api.version>1.10.1</pax.logging.api.version>
 
         <!--Carbon Identity Framework Version-->
-        <carbon.identity.framework.version>5.25.623</carbon.identity.framework.version>
+        <carbon.identity.framework.version>7.8.125</carbon.identity.framework.version>
         <carbon.identity.framework.imp.pkg.version.range>[5.20.211, 8.0.0)</carbon.identity.framework.imp.pkg.version.range>
 
         <!-- Unit test versions -->
