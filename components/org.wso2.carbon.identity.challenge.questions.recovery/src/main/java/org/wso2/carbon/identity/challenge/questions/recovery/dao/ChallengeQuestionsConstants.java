@@ -93,7 +93,8 @@ public class ChallengeQuestionsConstants {
                 "SELECT ID FROM IDN_CHALLENGE_QUESTION " +
                         "WHERE TENANT_ID = :TENANT_ID; " +
                         "AND QUESTION_SET_ID = :QUESTION_SET_ID; " +
-                        "AND QUESTION_ID = :QUESTION_ID;";
+                        "AND QUESTION_ID = :QUESTION_ID; " +
+                        "LIMIT 1";
 
         public static final String GET_CHALLENGE_QUESTION_WITH_LOCALE =
                 "SELECT ID FROM IDN_CHALLENGE_QUESTION " +
@@ -101,6 +102,12 @@ public class ChallengeQuestionsConstants {
                         "AND QUESTION_SET_ID = :QUESTION_SET_ID; " +
                         "AND QUESTION_ID = :QUESTION_ID; " +
                         "AND LOCALE = :LOCALE;";
+
+        public static final String GET_CHALLENGE_QUESTION_SET =
+                "SELECT ID FROM IDN_CHALLENGE_QUESTION " +
+                        "WHERE TENANT_ID = :TENANT_ID; " +
+                        "AND QUESTION_SET_ID = :QUESTION_SET_ID; " +
+                        "LIMIT 1";
 
         public static final String GET_CHALLENGE_QUESTION_SET_ID =
                 "SELECT DISTINCT QUESTION_SET_ID FROM IDN_CHALLENGE_QUESTION " +
@@ -113,7 +120,7 @@ public class ChallengeQuestionsConstants {
         ERROR_CODE_DATABASE_EXCEPTION_SET_CHALLENGE_QUESTIONS("20002", "Error while setting challenge question"),
         ERROR_CODE_ERROR_DELETING_CHALLENGE_SET("20057", "Error when deleting challenge question set %s."),
         ERROR_CODE_DATABASE_EXCEPTION_DELETE_CHALLENGE_QUESTIONS("20058",
-                "Error while deleting challenge question of locale %s in set %s");
+                "Error while deleting challenge question set of locale %s");
 
         private final String code;
         private final String message;

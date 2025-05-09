@@ -44,6 +44,7 @@ public class ChallengeQuestionPersistenceManagerFactory {
             switch (CHALLENGE_QUESTIONS_STORAGE_TYPE) {
                 case HYBRID:
                     // Initialize Hybrid Challenge Question storage.
+                    challengeQuestionDAO = new HybridChallengeQuestionDAOImpl();
                     LOG.info("Hybrid Challenge Question storage initialized.");
                     break;
                 case REGISTRY:
