@@ -123,6 +123,11 @@
                 <artifactId>org.wso2.carbon.identity.multi.attribute.login.mgt</artifactId>
                 <version>${carbon.identity.framework.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon.identity.framework</groupId>
+                <artifactId>org.wso2.carbon.identity.testutil</artifactId>
+                <version>${carbon.identity.framework.version}</version>
+            </dependency>
 
             <!--Orbit Dependencies-->
             <dependency>
@@ -314,6 +319,19 @@
                 <scope>provided</scope>
                 <version>${project.version}</version>
             </dependency>
+            <!-- Common test utility -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <scope>test</scope>
+                <version>${h2database.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-testng</artifactId>
+                <version>${mockito-testng.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -472,8 +490,9 @@
         <carbon.identity.framework.imp.pkg.version.range>[5.20.211, 8.0.0)</carbon.identity.framework.imp.pkg.version.range>
 
         <!-- Unit test versions -->
-        <testng.version>6.9.10</testng.version>
+        <testng.version>7.10.1</testng.version>
         <mockito.version>3.10.0</mockito.version>
+        <mockito-testng.version>0.5.2</mockito-testng.version>
         <jacoco.version>0.8.7</jacoco.version>
         <slf4j.api.version>1.6.1</slf4j.api.version>
         <jackson-databind.version>2.13.4.2</jackson-databind.version>
@@ -486,5 +505,7 @@
         <maven.bundle.plugin.version>3.2.0</maven.bundle.plugin.version>
         <maven.spotbugsplugin.version>3.1.10</maven.spotbugsplugin.version>
         <maven.spotbugsplugin.exclude.file>spotbugs-exclude.xml</maven.spotbugsplugin.exclude.file>
+        <h2database.version>2.2.224</h2database.version>
+        <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
     </properties>
 </project>
