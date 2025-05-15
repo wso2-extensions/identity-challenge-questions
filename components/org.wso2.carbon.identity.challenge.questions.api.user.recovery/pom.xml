@@ -22,12 +22,12 @@
     <parent>
         <groupId>org.wso2.carbon.identity.challenge.questions</groupId>
         <artifactId>identity-challenge-questions</artifactId>
-        <version>3.0.3-SNAPSHOT</version>
+        <version>3.0.4-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
 
     <artifactId>org.wso2.carbon.identity.challenge.questions.api.user.recovery</artifactId>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>3.0.4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>WSO2 Carbon - Identity Management Recovery Rest API</name>
     <description>WSO2 Carbon - Identity Management Recovery Rest API</description>
