@@ -28,7 +28,7 @@ enable = true
 ```
 
 7. Please follow these steps based on your identity server version.
-   - **IS-7.1.0 onwards**
+   - **IS-7.0.0 onwards**
      - Open the web.xml file located in the repository/deployment/server/webapps/api/WEB-INF directory.
      - Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>ServerV1ApiServlet</servlet-name>** tag, add the following class:`org.wso2.carbon.identity.rest.api.server.challenge.v1.ChallengesApi`
      - Under the **<param-value>** in **jaxrs.serviceClasses** of **<servlet-name>UserV1Servlet</servlet-name>** tag, add the following classes:
@@ -42,7 +42,7 @@ enable = true
       org.wso2.carbon.identity.challenge.questions.recovery.endpoint.SecurityQuestionsApi,
       org.wso2.carbon.identity.challenge.questions.recovery.endpoint.ValidateAnswerApi
       ```
-   - **below IS-7.1.0 versions**
+   - **below IS-7.0.0 versions**
      - Open the beans.xml file located in the repository/deployment/server/webapps/api/WEB-INF directory.
      - Add the following imports to the configuration bean.
       ```
