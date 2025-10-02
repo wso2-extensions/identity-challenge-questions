@@ -20,12 +20,12 @@
 6. Add the following configs to the deployment.toml file
     - **IS-7.2.0 and later**
 
-        !!! Note: SOAP APIs are disabled from IS 7.2.0 onwards. To access the management console at https://localhost:9443/carbon/ , you must explicitly enable admin services by setting `disable_admin_services = false`.
+        !!! Note: SOAP APIs are disabled from IS 7.2.0 onwards. To access the management console at https://localhost:9443/carbon/ , you must explicitly enable admin services by setting `enable_admin_services = true`.
 
         ```
         [server]
         hide_menu_items = []
-        disable_admin_services = false
+        enable_admin_services = true
 
         [connector.challenge_questions]
         enable = true
