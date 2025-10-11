@@ -1,7 +1,7 @@
 ### **Configuring challenge questions connector**
 
 1. Download the connector from [WSO2 Connector Store](https://store.wso2.com/connector/identity-challenge-questions).
-2. Navigate to the <PRODUCT_HOME>, paste the wso2is-challenge-questions-connector-x.x.x.zip file downloaded from the WSO2 Connector Store and extract it. The extracted folder will be referred to as <CONNECTOR_HOME> in the rest of this document.
+2. Navigate to the <PRODUCT_HOME> directory. (<PRODUCT_HOME> refers to the folder where WSO2 Identity Server is installed. Example: /home/user/wso2is-7.x.x). Paste the wso2is-challenge-questions-connector-x.x.x.zip file downloaded from the WSO2 Connector Store and extract it. The extracted folder will be referred to as <CONNECTOR_HOME> in the rest of this document.
 3. Execute the database scripts in <CONNECTOR_HOME>/dbscripts folder against identity DB.
 4. If you are using MacOS/Ubuntu, navigate to <CONNECTOR_HOME> and execute the following commands.
 
