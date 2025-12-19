@@ -32,6 +32,7 @@ import org.wso2.carbon.identity.application.common.model.IdentityProvider;
 import org.wso2.carbon.identity.application.common.model.IdentityProviderProperty;
 import org.wso2.carbon.identity.application.common.model.User;
 import org.wso2.carbon.identity.base.IdentityException;
+import org.wso2.carbon.identity.core.util.IdentityUtil;
 import org.wso2.carbon.identity.mgt.util.Utils;
 import org.wso2.carbon.identity.challenge.questions.recovery.ChallengeQuestionManager;
 import org.wso2.carbon.identity.recovery.IdentityRecoveryConstants;
@@ -71,8 +72,11 @@ import javax.servlet.http.HttpServletResponse;
 public class PostAuthnMissingChallengeQuestionsHandler extends AbstractPostAuthnHandler {
 
     private static final String CHALLENGE_QUESTIONS_REQUESTED = "challengeQuestionsRequested";
+    private static final String CHALLENGE_QUESTIONS_LIST_AS_STRING = "challengeQuestions";
     private static final String SELECTED_CHALLENGE_QUESTION_PREFIX = "Q-";
     private static final String CHALLENGE_QUESTION_ANSWER_PREFIX = "A-";
+
+    private static final String SKIP_SENDING_QUESTIONS_IN_URL = "Recovery.Question.SkipSendingQuestionsInUrl";
 
     private static final Log log = LogFactory.getLog(PostAuthnMissingChallengeQuestionsHandler.class);
     private static volatile PostAuthnMissingChallengeQuestionsHandler instance =
@@ -409,12 +413,12 @@ public class PostAuthnMissingChallengeQuestionsHandler extends AbstractPostAuthn
     }
 
     /**
-     * Returns a URL-encoded string of challenge questions for the given user
+     * Returns a string of challenge questions for the given user
      *
      * @param user Authenticated User.
-     * @return UTF-8 encoded URL with challenge questions.
+     * @return The challenge questions.
      */
-    private String getUrlEncodedChallengeQuestionsString(AuthenticatedUser user) throws UnsupportedEncodingException {
+    private String getChallengeQuestionsString(AuthenticatedUser user) throws UnsupportedEncodingException {
 
         StringBuilder challengeQuestionData = new StringBuilder();
         List<ChallengeQuestion> challengeQuestionList = getChallengeQuestions(user);
@@ -435,7 +439,7 @@ public class PostAuthnMissingChallengeQuestionsHandler extends AbstractPostAuthn
                         (questionString).append("|").append(questionLocale).append("&");
             }
         }
-        return java.net.URLEncoder.encode(challengeQuestionData.toString(), StandardCharsets.UTF_8.name());
+        return challengeQuestionData.toString();
     }
 
     /**
@@ -451,28 +455,35 @@ public class PostAuthnMissingChallengeQuestionsHandler extends AbstractPostAuthn
             AuthenticatedUser user) {
 
         // If challenge questions are not requested redirect user to add challenge questions jsp page
-        String encodedData = null;
+        String challengeQuestions = null;
         try {
-            encodedData = getUrlEncodedChallengeQuestionsString(user);
+            // Based on the config get the challenge questions string and add to the authentication context.
+            challengeQuestions = getChallengeQuestionsString(user);
         } catch (UnsupportedEncodingException e) {
             log.error("Error occurred while URL-encoding the challenge question data", e);
         }
 
-        if (StringUtils.isBlank(encodedData)) {
+        if (StringUtils.isBlank(challengeQuestions)) {
             if (log.isDebugEnabled()) {
                 log.debug("Unable to get challenge questions for user : " + user.getUserName() + " for " +
                         "tenant domain : " + authenticationContext.getTenantDomain());
             }
             return PostAuthnHandlerFlowStatus.UNSUCCESS_COMPLETED;
         }
+        authenticationContext.addEndpointParam(CHALLENGE_QUESTIONS_LIST_AS_STRING, challengeQuestions);
 
         try {
             // Redirect the user to fill the answers for challenge questions
-            httpServletResponse.sendRedirect
-                    (ConfigurationFacade.getInstance().getAuthenticationEndpointURL().replace("/login.do", ""
+            String redirectUrl =
+                    ConfigurationFacade.getInstance().getAuthenticationEndpointURL().replace("/login.do", ""
                     ) + "/add-security-questions" + ".jsp?sessionDataKey=" +
-                            authenticationContext.getContextIdentifier() + "&data=" + encodedData + "&sp=" +
-                            authenticationContext.getServiceProviderName());
+                            authenticationContext.getContextIdentifier() + "&sp=" +
+                            authenticationContext.getServiceProviderName();
+
+            if (!isSkipSendQuestionsInUrl()) {
+                redirectUrl += "&data=" + java.net.URLEncoder.encode(challengeQuestions, StandardCharsets.UTF_8.name());
+            }
+            httpServletResponse.sendRedirect(redirectUrl);
             setChallengeQuestionRequestedState(authenticationContext);
             return PostAuthnHandlerFlowStatus.INCOMPLETE;
 
@@ -499,5 +510,10 @@ public class PostAuthnMissingChallengeQuestionsHandler extends AbstractPostAuthn
         setChallengeQuestionAnswers(user, answersForChallengeQuestions);
 
         return PostAuthnHandlerFlowStatus.SUCCESS_COMPLETED;
+    }
+
+    private static boolean isSkipSendQuestionsInUrl() {
+
+        return Boolean.parseBoolean(IdentityUtil.getProperty(SKIP_SENDING_QUESTIONS_IN_URL));
     }
 }
