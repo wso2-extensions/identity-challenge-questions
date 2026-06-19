@@ -39,6 +39,63 @@
         enable = true
         ```
 
+    Additionally, add the following configurations to register the Challenge Questions Management API and its authorization scopes:
+
+    ```toml
+    # Challenge Questions Management API
+
+    [[resource.access_control]]
+    context = "(.*)/api/server/v1/challenges(.*)"
+    secure = "true"
+    http_method = "GET"
+    scopes = ["internal_challenge_view"]
+
+    [[resource.access_control]]
+    context = "(.*)/api/server/v1/challenges(.*)"
+    secure = "true"
+    http_method = "POST"
+    scopes = ["internal_challenge_create"]
+
+    [[resource.access_control]]
+    context = "(.*)/api/server/v1/challenges(.*)"
+    secure = "true"
+    http_method = "PUT"
+    scopes = ["internal_challenge_update"]
+
+    [[resource.access_control]]
+    context = "(.*)/api/server/v1/challenges(.*)"
+    secure = "true"
+    http_method = "DELETE"
+    scopes = ["internal_challenge_delete"]
+
+    [[api_resources]]
+    name = "Challenge Questions API"
+    identifier = "/api/server/v1/challenges"
+    requiresAuthorization = true
+    description = "API representation of the Challenge Questions Management API"
+    type = "TENANT"
+
+    [[api_resources.scopes]]
+    displayName = "Create Challenge Questions"
+    name = "internal_challenge_create"
+    description = "Create challenge questions"
+
+    [[api_resources.scopes]]
+    displayName = "Update Challenge Questions"
+    name = "internal_challenge_update"
+    description = "Update challenge questions"
+
+    [[api_resources.scopes]]
+    displayName = "View Challenge Questions"
+    name = "internal_challenge_view"
+    description = "View challenge questions"
+
+    [[api_resources.scopes]]
+    displayName = "Delete Challenge Questions"
+    name = "internal_challenge_delete"
+    description = "Delete challenge questions"
+    ```
+
 7. Please follow these steps based on your identity server version.
    - **IS-7.1.0 onwards**
      - Open the web.xml file located in the repository/deployment/server/webapps/api/WEB-INF directory.
