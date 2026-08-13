@@ -8,10 +8,10 @@
     "labels": [],
     "releases": [
         {
-            "tagName": "v3.0.7",
+            "tagName": "v3.0.9",
             "products": [
-                "IS 7.2.0",
-                "IS 7.3.0"
+                "IS 7.3.0",
+                "IS 7.2.0"
             ]
         },
         {
